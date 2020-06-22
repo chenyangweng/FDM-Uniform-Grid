@@ -1,0 +1,530 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%%%%%%%%%%%%%%   C. W. defined Preamble
+
+\usepackage[normalem]{ulem}
+
+%\usepackage{subcaption}
+
+
+
+%% Using pretty reference  !!!!!!!!!!!!!!!!!!!!!!!!
+\newrefformat{eq}{Eq.~\textup{(\ref{#1})}}
+\newrefformat{sec}{Sec.~\ref{#1}}
+\newrefformat{sub}{Sec.~\ref{#1}}
+%\newrefformat{tab}{Table \ref{#1} on page \pageref{#1}}
+\newrefformat{tab}{Tab.~\ref{#1} }
+%\newrefformat{fig}{Figure \ref{#1} on page \pageref{#1}}
+\newrefformat{fig}{Fig.~\ref{#1}}
+
+% Using overpic 
+\usepackage[percent]{overpic}
+
+
+
+% for figure captions, more lines 
+\usepackage{tikz}
+\usepackage{soul}
+\newcommand{\thinrule}[1][0.8cm]{\rule[0.5ex]{#1}{.2pt}}
+\newcommand{\thickrule}[1][0.8cm]{\rule[0.3ex]{#1}{1.3pt}}
+\newcommand{\dashrule}[1][0.3cm]{\rule[.5ex]{#1}{.8pt} \rule[.5ex]{#1}{.8pt}}
+\definecolor{grey}{rgb}{.5,.5,.5}
+\setstcolor{grey}
+
+
+
+% ---------------------     small caption 
+%\usepackage[font=small,labelfont=bf]{caption}
+%\setkomafont{caption}{\footnotesize\itshape}
+%\usepackage[margin=1pt,font=footnotesize,labelfont=bf,labelsep=endash]{caption}
+% Captions - original from latex.ltx
+
+\long\def\@makecaption#1#2{%
+  %\vskip\abovecaptionskip
+  \sbox\@tempboxa{\footnotesize\bfseries #1\@. #2}%
+  \ifdim \wd\@tempboxa >\hsize
+    \footnotesize\bfseries #1\@. #2\par
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+ % \vskip\belowcaptionskip
+}
+%\setlength{\belowcaptionskip}{1pt plus 1pt minus 1pt}
+
+
+%% colored table
+\usepackage{colortbl}
+\definecolor{lightgray}{gray}{0.9}
+%% see http://wiki.lyx.org/LyX/Tables#toc6
+
+
+
+\usepackage{lscape}
+
+% Footnotes
+\renewcommand\thefootnote{\@fnsymbol\c@footnote}
+\setcounter{footnote}{1}
+
+% two column, one-column equation
+\usepackage{cuted}
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding iso8859-15
+\fontencoding default
+\font_roman lmodern
+\font_sans default
+\font_typewriter default
+\font_math default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf2
+\output_sync 1
+\output_sync_macro "\usepackage[active]{srcltx}"
+\bibtex_command default
+\index_command default
+\paperfontsize 10
+\spacing single
+\use_hyperref true
+\pdf_author "Chenyang Weng"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "pdfborderstyle={},citecolor=blue,linkcolor=blue,urlcolor=olive"
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 0
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 2
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type numerical
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\boxbgcolor #f3f3f3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2.2cm
+\columnsep 0.8cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Gathering more grid points near the boundary via grid transformation
+\end_layout
+
+\begin_layout Author
+C.
+\begin_inset space ~
+\end_inset
+
+Weng
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+German Aerospace Center (DLR), Institute of Propulsion Technology, Engine
+ Acoustics, D-10623 Berlin, Germany.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+To gather more grid points near the boundary of the 2D computational domain,
+ grid transformation is applied.
+ Here we only talk about stretching transformations with univariate functions,
+ i.e.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $y=y(\eta)$
+\end_inset
+
+ and 
+\begin_inset Formula $z=z(\zeta)$
+\end_inset
+
+.
+ The final formula in this document is therefore not valid for general grid
+ transformations 
+\begin_inset Formula $y=y(\eta,\zeta)$
+\end_inset
+
+ and 
+\begin_inset Formula $z=z(\eta,\zeta)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+To gather more grid points near the boundaries of a 2D rectangular physical
+ domain, the following stretching transformation which maps the uniform
+ computational grid system 
+\begin_inset Formula $(\eta,\zeta)$
+\end_inset
+
+ to the non-uniform grid 
+\begin_inset Formula $(y,z)$
+\end_inset
+
+ is applied
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+y(\eta)=\frac{\tanh\left(a\eta\right)}{\tanh\left(a\right)},\ z(\zeta)=\frac{\tanh\left(a\zeta\right)}{\tanh\left(a\right)},\label{eq:grid-transform}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $-1\leqslant\eta\leqslant1,-1\leqslant\zeta\leqslant1$
+\end_inset
+
+, and 
+\begin_inset Formula $a$
+\end_inset
+
+ is a parameter controlling the distribution of the grids.
+ 
+\end_layout
+
+\begin_layout Standard
+When the univariate functions 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:grid-transform"
+
+\end_inset
+
+ are used, the derivatives with respect to 
+\begin_inset Formula $(y,z)$
+\end_inset
+
+ are given by 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "chapter~4"
+key "chung2010computational"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{subequations}
+\backslash
+label{eq:grid-transform-jocobian}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{gathered}\frac{\partial}{\partial y}\\
+\frac{\partial}{\partial z}
+\end{gathered}
+\right]=\frac{1}{\left|\mathbb{J}\right|}\left[\begin{gathered}\frac{\mathrm{d}z}{\mathrm{d}\zeta}\\
+0\vphantom{\frac{\mathrm{d}z}{\mathrm{d}\zeta}}
+\end{gathered}
+\quad\begin{gathered}0\vphantom{\frac{\mathrm{d}z}{\mathrm{d}\zeta}}\\
+\frac{\mathrm{d}y}{\mathrm{d}\eta}
+\end{gathered}
+\right]\left[\begin{gathered}\frac{\partial}{\partial\eta}\\
+\frac{\partial}{\partial\zeta}
+\end{gathered}
+\right]=\left[\begin{gathered}\left(\frac{\mathrm{d}y}{\mathrm{d}\eta}\right)^{-1}\frac{\partial}{\partial\eta}\\
+\left(\frac{\mathrm{d}z}{\mathrm{d}\zeta}\right)^{-1}\frac{\partial}{\partial\zeta}
+\end{gathered}
+\right],
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat}{1}
+\frac{\partial^{2}}{\partial y^{2}} & =\frac{1}{\left|\mathbb{J}\right|^{2}}\left(\frac{\mathrm{d}z}{\mathrm{d}\zeta}\right)^{2}\frac{\partial^{2}}{\partial\eta^{2}}-\frac{1}{\left|\mathbb{J}\right|^{3}}\left(\frac{\mathrm{d}z}{\mathrm{d}\zeta}\right)^{3}\frac{\partial^{2}y}{\partial\eta^{2}}\frac{\partial}{\partial\eta}\nonumber \\
+ & =\left(\frac{\mathrm{d}y}{\mathrm{d}\eta}\right)^{-2}\frac{\partial^{2}}{\partial\eta^{2}}-\left(\frac{\mathrm{d}y}{\mathrm{d}\eta}\right)^{-3}\frac{\partial^{2}y}{\partial\eta^{2}}\frac{\partial}{\partial\eta},
+\end{alignat}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat}{1}
+\frac{\partial^{2}}{\partial z^{2}} & =\frac{1}{\left|\mathbb{J}\right|^{2}}\left(\frac{\mathrm{d}y}{\mathrm{d}\eta}\right)^{2}\frac{\partial^{2}}{\partial\zeta^{2}}-\frac{1}{\left|\mathbb{J}\right|^{3}}\left(\frac{\mathrm{d}y}{\mathrm{d}\eta}\right)^{3}\frac{\partial^{2}z}{\partial\zeta^{2}}\frac{\partial}{\partial\zeta}\nonumber \\
+ & =\left(\frac{\mathrm{d}z}{\mathrm{d}\zeta}\right)^{-2}\frac{\partial^{2}}{\partial\zeta^{2}}-\left(\frac{\mathrm{d}z}{\mathrm{d}\zeta}\right)^{-3}\frac{\partial^{2}z}{\partial\zeta^{2}}\frac{\partial}{\partial\zeta},
+\end{alignat}
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{subequations} 
+\end_layout
+
+\end_inset
+
+where
+\begin_inset Formula 
+\begin{equation}
+\mathbb{J}=\left[\begin{gathered}\frac{\mathrm{d}y}{\mathrm{d}\eta}\\
+0\vphantom{\frac{\mathrm{d}z}{\mathrm{d}\zeta}}
+\end{gathered}
+\quad\begin{gathered}0\vphantom{\frac{\mathrm{d}z}{\mathrm{d}\zeta}}\\
+\frac{\mathrm{d}z}{\mathrm{d}\zeta}
+\end{gathered}
+\right]
+\end{equation}
+
+\end_inset
+
+is the Jacobian matrix, the determinant of which is
+\begin_inset Formula 
+\begin{equation}
+\left|\mathbb{J}\right|=\frac{\mathrm{d}y}{\mathrm{d}\eta}\,\frac{\mathrm{d}z}{\mathrm{d}\zeta}.
+\end{equation}
+
+\end_inset
+
+One should avoid 
+\begin_inset Formula $\mathrm{d}y/\mathrm{d}\eta=0$
+\end_inset
+
+ or 
+\begin_inset Formula $\mathrm{d}z/\mathrm{d}\zeta=0$
+\end_inset
+
+ (or 
+\begin_inset Formula $\mathrm{d}y/\mathrm{d}\eta=\infty$
+\end_inset
+
+ or 
+\begin_inset Formula $\mathrm{d}z/\mathrm{d}\zeta=\infty$
+\end_inset
+
+) otherwise the transformation given by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:grid-transform-jocobian"
+
+\end_inset
+
+ is singular.
+ 
+\end_layout
+
+\begin_layout Standard
+The derivatives 
+\begin_inset Formula $\mathrm{d}y/\mathrm{d}\eta$
+\end_inset
+
+, 
+\begin_inset Formula $\mathrm{d}^{2}y/\mathrm{d}\eta^{2}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathrm{d}z/\mathrm{d}\zeta$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathrm{d}^{2}z/\mathrm{d}\zeta^{2}$
+\end_inset
+
+ are calculated by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:grid-transform"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}y}{\mathrm{d}\eta}=\frac{a\,\mathrm{sech}^{2}\left(a\eta\right)}{\tanh\left(a\right)},\quad\frac{\mathrm{d}^{2}y}{\mathrm{d}\eta^{2}}=-\frac{2a^{2}\mathrm{sech}^{2}\left(a\eta\right)\tanh\left(a\eta\right)}{\tanh\left(a\right)},
+\end{equation}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}z}{\mathrm{d}\zeta}=\frac{a\,\mathrm{sech}^{2}\left(a\zeta\right)}{\tanh\left(a\right)},\quad\frac{\mathrm{d}^{2}z}{\mathrm{d}\zeta^{2}}=-\frac{2a^{2}\mathrm{sech}^{2}\left(a\zeta\right)\tanh\left(a\zeta\right)}{\tanh\left(a\right)}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Grid-transformation-given"
+
+\end_inset
+
+, an example of the grid transformation via 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:grid-transform-jocobian"
+
+\end_inset
+
+ is shown.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename GridTransformation.eps
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Grid transformation given by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:grid-transform-jocobian"
+
+\end_inset
+
+, with 
+\begin_inset Formula $a=1.5\mbox{ and }1.6$
+\end_inset
+
+ for 
+\begin_inset Formula $y$
+\end_inset
+
+ and 
+\begin_inset Formula $z$
+\end_inset
+
+ respectively.
+ See 
+\family typewriter
+testGridTransform.m
+\family default
+ for the generation of the figure.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Grid-transformation-given"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "D:/work/references,/Users/chenyangweng/Box Sync/Postdoc/work/references"
+options "unsrtnat"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

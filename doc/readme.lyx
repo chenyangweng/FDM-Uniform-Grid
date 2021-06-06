@@ -1304,9 +1304,9 @@ literal "true"
 \end_inset
 
 , the equation matrices obtained with the non-compact FDM are much sparser
- which considerably saves the computer memory.
- Therefore, if the given problem of relatively simple geometries, the non-compac
-t FDM is beyond any doubt a good choice for a hands-on of the problem.
+ which considerably saves computer memory.
+ Therefore, if the given problem has relatively simple geometries, the non-compa
+ct FDM is beyond any doubt a good choice for a hands-on of the problem.
 \end_layout
 
 \begin_layout Standard
@@ -1703,7 +1703,7 @@ literal "false"
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 btprint "btPrintCited"
-bibfiles "D:/backup/references"
+bibfiles "G:/OneDrive - Volvo Cars Production/references,D:/backup/references"
 options "unsrtnat"
 
 \end_inset
